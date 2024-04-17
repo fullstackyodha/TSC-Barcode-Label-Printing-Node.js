@@ -7,14 +7,6 @@ var setup;
 var closeport;
 var openport;
 var windowsfont;
-var sendcommand;
-
-var fileSize = {
-	width: "50",
-	height: "60",
-	speed: "12.0",
-	density: "5",
-};
 
 try {
 	openport = edge.func({
@@ -86,16 +78,6 @@ try {
 	console.log(error);
 }
 
-try {
-	sendcommand = edge.func({
-		assemblyFile: "tsclibnet.dll",
-		typeName: "TSCSDK.node_usb",
-		methodName: "sendcommand",
-	});
-} catch (error) {
-	console.log(error);
-}
-
 async function setupMod(fileSize) {
 	try {
 		await setup(fileSize);
@@ -152,33 +134,11 @@ async function printLabelMod(label_variable) {
 	}
 }
 
-async function setupPrinter() {
-	try {
-		await openPortMod("");
-	} catch (error) {
-		console.error("Setup printer failed:", error);
-	}
-}
-
-async function printItem(item) {
-	console.log(item);
-
-	try {
-	} catch (error) {
-		console.error("Error printing item:", error);
-	}
-}
-
-async function finishPrinting() {
-	try {
-		await closePortMod("");
-	} catch (error) {
-		console.error("Finish printing failed:", error);
-	}
-}
-
 async function printBarcode(items) {
-	console.log(items);
+	// console.log(items);
+
+	await openPortMod("");
+	await setupMod("50", "60", "12.0", "7");
 
 	for (const item of items) {
 		var productName_variable = {
@@ -201,7 +161,7 @@ async function printBarcode(items) {
 			rotation: "180deg",
 			narrow: "2",
 			wide: "2",
-			code: "01245383",
+			code: `${item?.barCode}`,
 		};
 
 		var customerFSSAI_variable = {
@@ -225,17 +185,6 @@ async function printBarcode(items) {
 			rotation: 180,
 			content: "Marketed By: Shree Ashapura Grain Store",
 		};
-
-		// var customerNameValue_variable = {
-		// 	x: 285,
-		// 	y: 340,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: "Shree Ashapura Grain Store",
-		// };
 
 		var customerAddress1_variable = {
 			x: 396,
@@ -292,17 +241,6 @@ async function printBarcode(items) {
 			content: "Packed On:  01/03/2024",
 		};
 
-		// var PackedOnValue_variable = {
-		// 	x: 290,
-		// 	y: 270,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: "01/03/2024",
-		// };
-
 		var BestBeforeField_variable = {
 			x: 396,
 			y: 240,
@@ -314,17 +252,6 @@ async function printBarcode(items) {
 			content: "Best Before:  01/05/2024",
 		};
 
-		// var BestBeforeValue_variable = {
-		// 	x: 290,
-		// 	y: 240,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: "01/05/2024",
-		// };
-
 		var mrpField_variable = {
 			x: 396,
 			y: 210,
@@ -335,17 +262,6 @@ async function printBarcode(items) {
 			rotation: 180,
 			content: `M.R.P.:  Rs. ${item?.mrp}`,
 		};
-
-		// var mrpValue_variable = {
-		// 	x: 300,
-		// 	y: 215,
-		// 	fontheight: 25,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: `${item?.mrp}`,
-		// };
 
 		var incAllTaxField_variable = {
 			x: 190,
@@ -369,17 +285,6 @@ async function printBarcode(items) {
 			content: "0.15 per gm",
 		};
 
-		// var pergramValue_variable = {
-		// 	x: 130,
-		// 	y: 190,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: "0.15",
-		// };
-
 		var rrpField_variable = {
 			x: 396,
 			y: 182,
@@ -390,17 +295,6 @@ async function printBarcode(items) {
 			rotation: 180,
 			content: `R.R.P.:  Rs. ${item?.rrp}`,
 		};
-
-		// var rrpValue_variable = {
-		// 	x: 300,
-		// 	y: 190,
-		// 	fontheight: 25,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: `${item?.rrp}`,
-		// };
 
 		var netQuantityField_variable = {
 			x: 396,
@@ -413,17 +307,6 @@ async function printBarcode(items) {
 			content: `Net Qty: ${item?.sku}`,
 		};
 
-		// var netQuantityValue_variable = {
-		// 	x: 300,
-		// 	y: 160,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: `${item?.sku}`,
-		// };
-
 		var lotNoField_variable = {
 			x: 396,
 			y: 124,
@@ -434,17 +317,6 @@ async function printBarcode(items) {
 			rotation: 180,
 			content: "Lot No.: B-43",
 		};
-
-		// var lotNoValue_variable = {
-		// 	x: 300,
-		// 	y: 130,
-		// 	fontheight: 20,
-		// 	fontstyle: 0,
-		// 	fontunderline: 0,
-		// 	szFaceName: "Arial",
-		// 	rotation: 180,
-		// 	content: "B-43",
-		// };
 
 		var companyName_variable = {
 			x: 396,
@@ -498,9 +370,6 @@ async function printBarcode(items) {
 
 		try {
 			await Promise.all([
-				openPortMod(""),
-				// setupMod(fileSize),
-				setupMod("50", "60", "12.0", "7"),
 				clearBufferMod(""),
 				windowsfontMod(productName_variable),
 				barcodeMod(barcode_variable),
@@ -524,60 +393,7 @@ async function printBarcode(items) {
 				windowsfontMod(companyFssai_variable),
 
 				printLabelMod(label_variable),
-				// clearBufferMod(""),
 			]);
-
-			// OPEN PORT FOR PRINTING
-			// await openPortMod("");
-
-			// await setupMod(fileSize);
-
-			// await clearBufferMod("");
-
-			// await windowsfontMod(productName_variable);
-
-			// await barcodeMod(barcode_variable);
-
-			// await windowsfontMod(customerFSSAI_variable);
-			// await windowsfontMod(customerNameField_variable);
-			// await windowsfontMod(customerNameValue_variable);
-			// await windowsfontMod(customerAddress1_variable);
-			// await windowsfontMod(customerAddress2_variable);
-
-			// await windowsfontMod(customerCareField_variable);
-			// await windowsfontMod(customerEmailField_variable);
-
-			// await windowsfontMod(PackedOnField_variable);
-			// await windowsfontMod(PackedOnValue_variable);
-
-			// await windowsfontMod(BestBeforeField_variable);
-			// await windowsfontMod(BestBeforeValue_variable);
-
-			// await windowsfontMod(mrpField_variable);
-			// await windowsfontMod(mrpValue_variable);
-
-			// await windowsfontMod(incAllTaxField_variable);
-
-			// await windowsfontMod(pergramField_variable);
-			// await windowsfontMod(pergramValue_variable);
-
-			// await windowsfontMod(rrpField_variable);
-			// await windowsfontMod(rrpValue_variable);
-
-			// await windowsfontMod(netQuantityField_variable);
-			// await windowsfontMod(netQuantityValue_variable);
-
-			// await windowsfontMod(lotNoField_variable);
-			// await windowsfontMod(lotNoValue_variable);
-
-			// await windowsfontMod(companyName_variable);
-			// await windowsfontMod(companyAddress1_variable);
-			// await windowsfontMod(companyAddress2_variable);
-			// await windowsfontMod(companyFssai_variable);
-
-			// await printLabelMod(label_variable);
-
-			// await clearBufferMod("");
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -594,70 +410,10 @@ module.exports = {
 };
 
 // try {
-// 	about = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "about",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	printerfont = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "printerfont",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	printerfile = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "printerfile",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
 // 	printer_status = edge.func({
 // 		assemblyFile: "tsclibnet.dll",
 // 		typeName: "TSCSDK.node_usb",
 // 		methodName: "printerstatus_string",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	sendcommand_utf8 = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "sendcommand_utf8",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	sendcommand_binary = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "sendcommand_binary",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	downloadFile = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "downloadfile",
 // 	});
 // } catch (error) {
 // 	console.log(error);
