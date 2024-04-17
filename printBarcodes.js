@@ -96,76 +96,6 @@ try {
 	console.log(error);
 }
 
-// try {
-// 	about = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "about",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	printerfont = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "printerfont",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	printerfile = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "printerfile",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	printer_status = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "printerstatus_string",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	sendcommand_utf8 = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "sendcommand_utf8",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	sendcommand_binary = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "sendcommand_binary",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// try {
-// 	downloadFile = edge.func({
-// 		assemblyFile: "tsclibnet.dll",
-// 		typeName: "TSCSDK.node_usb",
-// 		methodName: "downloadfile",
-// 	});
-// } catch (error) {
-// 	console.log(error);
-// }
-
 async function setupMod(fileSize) {
 	try {
 		await setup(fileSize);
@@ -222,11 +152,28 @@ async function printLabelMod(label_variable) {
 	}
 }
 
-async function sendCommandMod(command) {
+async function setupPrinter() {
 	try {
-		await sendcommand(command);
+		await openPortMod("");
 	} catch (error) {
-		console.log(error);
+		console.error("Setup printer failed:", error);
+	}
+}
+
+async function printItem(item) {
+	console.log(item);
+
+	try {
+	} catch (error) {
+		console.error("Error printing item:", error);
+	}
+}
+
+async function finishPrinting() {
+	try {
+		await closePortMod("");
+	} catch (error) {
+		console.error("Finish printing failed:", error);
 	}
 }
 
@@ -634,7 +581,7 @@ async function printBarcode(items) {
 		} catch (error) {
 			console.log(error);
 		} finally {
-			// await clearBufferMod("");
+			await clearBufferMod("");
 
 			// Always attempt to close the port
 			await closePortMod();
@@ -642,99 +589,76 @@ async function printBarcode(items) {
 	}
 }
 
-async function printBarcodeSendCMD(items) {
-	console.log(items);
-	try {
-		for (const item of items) {
-			await Promise.all([
-				openPortMod(""),
-				sendCommandMod("SIZE 50 mm,60 mm"),
-				sendCommandMod("DIRECTION 1,0"),
-				sendCommandMod("DENSITY 4"),
-				sendCommandMod("SPEED 12"),
-				sendCommandMod("CLS"),
-				sendCommandMod(
-					`TEXT 18,18,\"3.EFT\",0,0,1.5,\"${item?.itemName}\"`
-				),
-				sendCommandMod(
-					`BARCODE 28,45, \"128\",30,1,0,3,7,\"${item?.barCode}\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,110,\"2.EFT\",0,0,0,\"Marketed By:Ashapura General Store\"`
-				),
-				sendCommandMod(
-					`TEXT 18,130,\"2.EFT\",0,0,0,\"Shop No 18 Plot No. 26 Alankar\"`
-				),
-				sendCommandMod(
-					`TEXT 18,150,\"2.EFT\",0,0,0,\"Shopping Center N N P 344 East\"`
-				),
-				sendCommandMod(
-					`TEXT 300,150,\"2.EFT\",0,90,0,\"Cust. Care: 9999 44555\"`
-				),
-				sendCommandMod(
-					`TEXT 18,170,\"2.EFT\",0,0,0,\"FSSAI NO. 115200054000\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,200,\"3.EFT\",0,0.5,0,\"Packed On:   10/03/2024\"`
-				),
-				sendCommandMod(
-					`TEXT 18,230,\"3.EFT\",0,0.5,0,\"Best Before: 10/4/2024\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,260,\"3.EFT\",0,0.5,0,\"Net Qty:  ${item?.sku}\"`
-				),
-				sendCommandMod(
-					`TEXT 18,290,\"3.EFT\",0,0.5,0,\"Lot No:   B-677\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,320,\"3.EFT\",0,0.5,0,\"M.R.P: Rs. ${item?.mrp}/-\"`
-				),
-				sendCommandMod(
-					'TEXT 230,300,"1",0,0,0,"Incl. All Taxes"'
-				),
-				sendCommandMod(
-					'TEXT 230,330,"1",0,0,0,"0.15 Per gm"'
-				),
-				sendCommandMod(
-					`TEXT 18,350,\"3.EFT\",0,0.5,0,\"R.R.P: Rs. ${item?.rrp}/-\"`
-				),
-				sendCommandMod(
-					`TEXT 18,380,\"2.EFT\",0,0,0,\"Packed By:P.R.P.M Services Pvt Ltd\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,400,\"2.EFT\",0,0,0,\"G-25, Sidhpura Industrial Estate,\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,420,\"2.EFT\",0,0,0,\"Gaiwadi Rd S.V. Road\"`
-				),
-
-				sendCommandMod(
-					`TEXT 18,440,\"2.EFT\",0,0,0,\"Goregoan West 400104\"`
-				),
-				sendCommandMod(
-					`TEXT 18,460,\"2.EFT\",0,0,0,\"FSSAI NO. 115200054000\"`
-				),
-
-				sendCommandMod(`PRINT ${item?.quantity},1`),
-			]);
-		}
-	} catch (error) {
-		console.log(error);
-	} finally {
-		await sendCommandMod("CUT");
-		await closePortMod("");
-	}
-}
-
 module.exports = {
-	printBarcodeSendCMD,
 	printBarcode,
-	openPortMod,
-	closePortMod,
 };
+
+// try {
+// 	about = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "about",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	printerfont = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "printerfont",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	printerfile = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "printerfile",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	printer_status = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "printerstatus_string",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	sendcommand_utf8 = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "sendcommand_utf8",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	sendcommand_binary = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "sendcommand_binary",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }
+
+// try {
+// 	downloadFile = edge.func({
+// 		assemblyFile: "tsclibnet.dll",
+// 		typeName: "TSCSDK.node_usb",
+// 		methodName: "downloadfile",
+// 	});
+// } catch (error) {
+// 	console.log(error);
+// }

@@ -1,7 +1,7 @@
 {
   "name": "tsc_barcode_label_printing",
   "version": "0.0.0",
-  "description": "POS Barcode Label Prinitng using node.js",
+  "description": "POS Barcode Label Printing using node.js",
   "main": "server.js",
   "author": {
     "name": "Harshal Solanki"

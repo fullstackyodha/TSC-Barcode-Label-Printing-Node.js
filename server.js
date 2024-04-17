@@ -5,6 +5,10 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { printQueue } = require("./Queue/PrintingQueue");
+const {
+	printBarcodeSendCMD,
+	printBarcode,
+} = require("./printBarcodes");
 
 var app = express();
 
@@ -31,7 +35,6 @@ app.get("/test_get", function (req, res) {
 app.post("/", async function (req, res) {
 	const { items } = req.body;
 
-	console.log(items);
 	// ADD ITEMS TO THE QUEUE
 	printQueue.addPrinitngJob("printing", items);
 

@@ -1,7 +1,4 @@
-const {
-	printBarcode,
-	printBarcodeSendCMD,
-} = require("../printBarcodes");
+const { printBarcode } = require("../printBarcodes");
 
 class PrintingWorker {
 	constructor() {}
@@ -9,17 +6,12 @@ class PrintingWorker {
 	async sendTaskForPrinting(job, done) {
 		try {
 			const items = job.data;
-			console.log(items);
 
-			// await printBarcode(items);
-
-			await printBarcodeSendCMD(items);
+			await printBarcode(items);
 
 			job.progress(100);
 
 			done(null, job.data);
-
-			// return printBarcode(items);
 		} catch (error) {
 			console.error(error);
 			done(error);

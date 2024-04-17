@@ -8,7 +8,7 @@ class PrintQueue extends BaseQueue {
 		// PROCESS THE JOB OF PRINTING
 		this.processJob(
 			"printing",
-			4,
+			5,
 			printWorker.sendTaskForPrinting
 		);
 	}

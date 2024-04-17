@@ -22,6 +22,22 @@ class BaseQueue {
 			console.log(`JOB ${job.id} Removed`);
 		});
 
+		this.queue.on("resumed", async (job) => {
+			console.log(`JOB ${job.id} Resumed`);
+		});
+
+		this.queue.on("paused", async (job) => {
+			console.log(`JOB ${job.id} Paused`);
+		});
+
+		this.queue.on("waiting", async (job) => {
+			console.log(`JOB ${job.id} Waiting`);
+		});
+
+		this.queue.on("removed", async (job) => {
+			console.log(`JOB ${job.id} Removed`);
+		});
+
 		this.queue.on("failed", async (job, error) => {
 			console.error(`JOB ${job.id} FAILED`, error);
 			await job.remove();
