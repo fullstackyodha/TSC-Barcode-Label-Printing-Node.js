@@ -28,10 +28,14 @@ class BaseQueue {
 
 		this.queue.on("paused", async (job) => {
 			console.log(`JOB ${job.id} Paused`);
+			await job.retry();
+			console.log(`RETRYING JOB ${job.id}`);
 		});
 
 		this.queue.on("waiting", async (job) => {
 			console.log(`JOB ${job.id} Waiting`);
+			await job.retry();
+			console.log(`RETRYING JOB ${job.id}`);
 		});
 
 		this.queue.on("removed", async (job) => {
