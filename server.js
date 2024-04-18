@@ -40,8 +40,8 @@ app.post("/", async function (req, res) {
 
 	res.header(
 		"Access-Control-Allow-Origin",
-		// "http://localhost:3020"
-		"*"
+		"http://localhost:3020"
+		// "*"
 	);
 
 	res.header(

@@ -18,8 +18,26 @@ class BaseQueue {
 
 		this.queue.on("stalled", async (job) => {
 			console.log(`JOB ${job.id} Stalled`);
-			await job.remove();
-			console.log(`JOB ${job.id} Removed`);
+
+			if (job.attemptsMade < job.opts.attempts) {
+				job.retry();
+				console.log(`JOB ${job.id} Retrying`);
+			} else {
+				await job.remove();
+				console.log(`JOB ${job.id} Removed`);
+			}
+		});
+
+		this.queue.on("failed", async (job, error) => {
+			console.error(`JOB ${job.id} FAILED`, error);
+
+			if (job.attemptsMade < job.opts.attempts) {
+				job.retry();
+				console.log(`JOB ${job.id} Retrying`);
+			} else {
+				await job.remove();
+				console.log(`JOB ${job.id} Removed`);
+			}
 		});
 
 		this.queue.on("resumed", async (job) => {
@@ -34,17 +52,9 @@ class BaseQueue {
 
 		this.queue.on("waiting", async (job) => {
 			console.log(`JOB ${job.id} Waiting`);
-			await job.retry();
-			console.log(`RETRYING JOB ${job.id}`);
 		});
 
 		this.queue.on("removed", async (job) => {
-			console.log(`JOB ${job.id} Removed`);
-		});
-
-		this.queue.on("failed", async (job, error) => {
-			console.error(`JOB ${job.id} FAILED`, error);
-			await job.remove();
 			console.log(`JOB ${job.id} Removed`);
 		});
 	}
