@@ -3,12 +3,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 const cors = require("cors");
+const compression = require("compression");
 
 const { printQueue } = require("./Queue/PrintingQueue");
-const {
-	printBarcodeSendCMD,
-	printBarcode,
-} = require("./printBarcodes");
 
 var app = express();
 
@@ -17,6 +14,8 @@ app.use(cors());
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false,
 });
+
+app.use(compression());
 
 app.use(urlencodedParser);
 
@@ -32,16 +31,17 @@ app.get("/test_get", function (req, res) {
 	res.json({ message: "GET Function Test!!" });
 });
 
-app.post("/", async function (req, res) {
+app.post("/api/v1/print", async function (req, res) {
 	const { items } = req.body;
+	console.log(items);
 
 	// ADD ITEMS TO THE QUEUE
 	printQueue.addPrinitngJob("printing", items);
 
 	res.header(
 		"Access-Control-Allow-Origin",
-		"http://localhost:3020"
-		// "*"
+		// "http://localhost:3020"
+		"*"
 	);
 
 	res.header(
