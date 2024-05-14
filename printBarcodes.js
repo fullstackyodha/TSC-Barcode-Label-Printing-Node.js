@@ -139,7 +139,8 @@ async function printBarcode(items) {
 		let allPrintingTask = [];
 
 		await openPortMod("");
-		await setupMod("50", "60", "18.0", "7");
+		await setupMod("50", "60", "12.0", "7");
+		await clearBufferMod("");
 
 		// CREATE ALL PRINITNG TASK
 		for (const item of items) {
@@ -180,7 +181,7 @@ function createLabelData(item) {
 	var productName_variable = {
 		x: 390,
 		y: 470,
-		fontheight: 30,
+		fontheight: 26,
 		fontstyle: 2,
 		fontunderline: 0,
 		szFaceName: "Arial",
@@ -190,9 +191,9 @@ function createLabelData(item) {
 
 	var barcode_variable = {
 		x: "390",
-		y: "430",
+		y: "440",
 		type: "128",
-		height: "50",
+		height: "45",
 		readable: "1",
 		rotation: "180deg",
 		narrow: "2",
@@ -201,17 +202,28 @@ function createLabelData(item) {
 	};
 
 	var customerFSSAI_variable = {
-		x: 250,
-		y: 370,
+		x: 240,
+		y: 385,
 		fontheight: 20,
 		fontstyle: 0,
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "FSSAI NO. 1132198462374",
+		content: `FSSAI NO. ${item?.fssaiNo}`,
 	};
 
 	var customerNameField_variable = {
+		x: 396,
+		y: 360,
+		fontheight: 20,
+		fontstyle: 0,
+		fontunderline: 0,
+		szFaceName: "Arial",
+		rotation: 180,
+		content: `Marketed By: ${item?.storeName}`,
+	};
+
+	var customerAddress1_variable = {
 		x: 396,
 		y: 340,
 		fontheight: 20,
@@ -219,10 +231,10 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Marketed By: Shree Ashapura Grain Store",
+		content: `${item?.address1}`,
 	};
 
-	var customerAddress1_variable = {
+	var customerAddress2_variable = {
 		x: 396,
 		y: 320,
 		fontheight: 20,
@@ -230,10 +242,9 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Shop No 18 Plot No. 26 Alankar",
+		content: `${item?.address2}`,
 	};
-
-	var customerAddress2_variable = {
+	var customerEmailField_variable = {
 		x: 396,
 		y: 300,
 		fontheight: 20,
@@ -241,29 +252,18 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Shopping Center N N P 344 East",
+		content: `Email: ${item?.email}`,
 	};
 
 	var customerCareField_variable = {
-		x: 30,
+		x: 10,
 		y: 280,
 		fontheight: 20,
 		fontstyle: 0,
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 90,
-		content: "Cust. Care: 9820454545",
-	};
-
-	var customerEmailField_variable = {
-		x: 10,
-		y: 300,
-		fontheight: 21,
-		fontstyle: 0,
-		fontunderline: 0,
-		szFaceName: "Arial",
-		rotation: 90,
-		content: "ashapuragrain@gmail.com",
+		content: `Cust. Care: ${item?.customerCare}`,
 	};
 
 	var PackedOnField_variable = {
@@ -323,7 +323,7 @@ function createLabelData(item) {
 
 	var rrpField_variable = {
 		x: 396,
-		y: 182,
+		y: 180,
 		fontheight: 23,
 		fontstyle: 2,
 		fontunderline: 0,
@@ -334,7 +334,7 @@ function createLabelData(item) {
 
 	var netQuantityField_variable = {
 		x: 396,
-		y: 154,
+		y: 150,
 		fontheight: 22,
 		fontstyle: 2,
 		fontunderline: 0,
@@ -345,7 +345,7 @@ function createLabelData(item) {
 
 	var lotNoField_variable = {
 		x: 396,
-		y: 124,
+		y: 120,
 		fontheight: 22,
 		fontstyle: 2,
 		fontunderline: 0,
@@ -373,7 +373,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "G-25, Sidhpura Industrial Estate,",
+		content: "G-25, Sidhpura Industrial Estate, Gaiwadi Rd",
 	};
 
 	var companyAddress2_variable = {
@@ -384,7 +384,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Gaiwadi Rd S.V. Road, Goregoan West 400104.",
+		content: "S.V. Road, Goregoan West 400104.",
 	};
 
 	var companyFssai_variable = {
