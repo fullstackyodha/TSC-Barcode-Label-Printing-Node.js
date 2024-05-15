@@ -33,7 +33,6 @@ app.get("/test_get", function (req, res) {
 
 app.post("/api/v1/print", async function (req, res) {
 	const { items } = req.body;
-	console.log(items);
 
 	// ADD ITEMS TO THE QUEUE
 	printQueue.addPrinitngJob("printing", items);

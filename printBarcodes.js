@@ -198,7 +198,7 @@ function createLabelData(item) {
 		rotation: "180deg",
 		narrow: "2",
 		wide: "2",
-		code: `${item?.barCode}`,
+		code: `${item?.barcode}`,
 	};
 
 	var customerFSSAI_variable = {
@@ -231,7 +231,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: `${item?.address1}`,
+		content: `${item?.address.slice(0, 45)}`,
 	};
 
 	var customerAddress2_variable = {
@@ -242,7 +242,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: `${item?.address2}`,
+		content: `${item?.address.slice(45)}`,
 	};
 	var customerEmailField_variable = {
 		x: 396,
@@ -274,7 +274,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Packed On:  01/03/2024",
+		content: `Packed On:  ${item?.packedOn}`,
 	};
 
 	var BestBeforeField_variable = {
@@ -285,7 +285,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Best Before:  01/05/2024",
+		content: `Best Before:  ${item?.bestBefore}`,
 	};
 
 	var mrpField_variable = {
@@ -301,7 +301,7 @@ function createLabelData(item) {
 
 	var incAllTaxField_variable = {
 		x: 190,
-		y: 210,
+		y: 200,
 		fontheight: 20,
 		fontstyle: 0,
 		fontunderline: 0,
@@ -312,13 +312,13 @@ function createLabelData(item) {
 
 	var pergramField_variable = {
 		x: 190,
-		y: 190,
+		y: 180,
 		fontheight: 20,
 		fontstyle: 0,
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "0.15 per gm",
+		content: `${item.pergram} per gm`,
 	};
 
 	var rrpField_variable = {
@@ -351,7 +351,7 @@ function createLabelData(item) {
 		fontunderline: 0,
 		szFaceName: "Arial",
 		rotation: 180,
-		content: "Lot No.: B-43",
+		content: `Lot No.: ${item?.lotno}`,
 	};
 
 	var companyName_variable = {
