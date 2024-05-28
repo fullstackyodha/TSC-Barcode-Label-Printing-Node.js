@@ -14,7 +14,7 @@
 103C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\lodash\sum.js133576329475196617 0
 107C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\gopd\CHANGELOG.md133572879601782532 0
 125C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\caniuse-lite\dist\unpacker\index.js133578985374966348 0
-81C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\.env133613772896264761 0
+81C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\.env133613776061828504 0
 96C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\@lezer133578985030394354 1
 108C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\lodash\multiply.js133576329470391468 0
 110C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\standard-as-callback133576329389930353 1
@@ -8552,4 +8552,4 @@
 117C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\.bin\update-browserslist-db133578985438503925 0
 121C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\.bin\update-browserslist-db.cmd133578985438503925 0
 103C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\node_modules\.bin\uuid.cmd133576329482170974 0
-92C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\build\server.js133613770488362971 0
+92C:\Users\Harshal Solanki\Desktop\TSC Barcode Label Prinitng\barcode_prinitng\build\server.js133613773258033858 0
