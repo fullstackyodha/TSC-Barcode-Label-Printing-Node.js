@@ -23,7 +23,9 @@ app.use(express.json());
 
 app.use(express.static("./"));
 
-app.listen(8888, function () {
+const port = process.env.PORT || 8888;
+
+app.listen(port, function () {
 	console.log("Server Start!!");
 });
 
