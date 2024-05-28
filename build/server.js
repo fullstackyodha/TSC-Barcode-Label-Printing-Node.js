@@ -39454,11 +39454,9 @@ eS.listen(e_, function () {
 				"Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept"
 			),
-			t
-				.status(200)
-				.json({
-					message:
-						"Task added to prinitng queue successfully",
-				});
+			t.status(200).json({
+				message:
+					"Task added to prinitng queue successfully",
+			});
 	});
 //# sourceMappingURL=server.js.map
