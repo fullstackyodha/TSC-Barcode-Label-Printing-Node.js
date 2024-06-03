@@ -1,4 +1,5 @@
 const { printBarcode } = require("../printBarcodes");
+const { printLabels } = require("../printingLabelImages");
 
 class PrintingWorker {
 	constructor() {}
@@ -6,8 +7,13 @@ class PrintingWorker {
 	async sendTaskForPrinting(job, done) {
 		try {
 			const items = job.data;
+			console.log("WORKER: " + items);
 
-			await printBarcode(items);
+			// WITH TSC .DLL COMMANDS
+			// await printBarcode(items);
+
+			// WITH LABEL IMAGES
+			await printLabels(items);
 
 			job.progress(100);
 
