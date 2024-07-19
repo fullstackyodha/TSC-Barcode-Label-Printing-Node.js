@@ -1,12 +1,12 @@
-const fs = require("fs");
-const usb = require("usb");
-const Jimp = require("jimp");
-const TscBuffer = require("./tsc/TscBuffer");
-const TscPrinter = require("./tsc/TscPrinter");
-const sharp = require("sharp");
-const bwipjs = require("bwip-js");
-const path = require("path");
-const { setInterval } = require("timers");
+const fs = require('fs');
+const usb = require('usb');
+const Jimp = require('jimp');
+const TscBuffer = require('./tsc/TscBuffer');
+const TscPrinter = require('./tsc/TscPrinter');
+const sharp = require('sharp');
+const bwipjs = require('bwip-js');
+const path = require('path');
+const { setInterval } = require('timers');
 
 // GET THE TSC DEVICE ACCORDING TO THE VENDOR AND PRODUCT ID
 const TSC_THERMAL_PRINTER = usb
@@ -22,7 +22,7 @@ console.log(TSC_THERMAL_PRINTER);
 const printer = new TscPrinter(TSC_THERMAL_PRINTER[0]);
 
 const printImage = (tasks) => {
-	console.log("Task:", tasks);
+	console.log('Task:', tasks);
 
 	tasks.forEach(async (task) => {
 		const imgPath = `./labels/${task.itemName}.jpeg`;
@@ -41,15 +41,17 @@ const printImage = (tasks) => {
 
 // Function to generate barcode
 function generateBarcode(data) {
+	let bardata = `${data}`;
+
 	return new Promise((resolve, reject) => {
 		bwipjs.toBuffer(
 			{
-				bcid: "code128",
-				text: `0${data}`,
-				scale: 3,
-				height: 8,
+				bcid: 'code128',
+				text: bardata.length == 8 ? `${bardata}` : `0${bardata}`,
+				scale: 8,
+				height: 6,
 				includetext: true,
-				textxalign: "center",
+				textxalign: 'center',
 			},
 			function (err, png) {
 				if (err) {
@@ -71,61 +73,61 @@ function createTextImage(item) {
 
         <!-- Title -->
         <text x="0.5mm" y="1.4mm" font-size="2.8" font-family="Arial" font-weight="bold">${
-					item.itemName
-				}</text>
+			item.itemName
+		}</text>
 
         <!-- FSSAI number -->
         <text x="7mm" y="5mm" font-size="2" font-family="Arial" font-weight="bold">FSSAI NO. ${
-					item.fssaiNo
-				}</text>
+			item.fssaiNo
+		}</text>
 
 
         <!-- Marketer details -->
         <text  x="0.5mm" y="6mm" font-size="2.3" font-family="Arial" font-weight="bold">Marketed By: ${
-					item.storeName
-				}</text>
+			item.storeName
+		}</text>
         <text  x="0.5mm" y="7mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
-					0,
-					45
-				)}</text>
+			0,
+			45
+		)}</text>
         <text x="0.5mm" y="8mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
-					45
-				)}</text>
+			45
+		)}</text>
         <text x="0.5mm" y="9mm" font-size="2.1" font-family="Arial" font-weight="bold">Email: ${
-					item.email
-				}</text>
+			item.email
+		}</text>
         <text x="0.5mm" y="10mm" font-size="2.1"  font-family="Arial" font-weight="bold">Cust. Care: ${
-					item.customerCare
-				}</text>
+			item.customerCare
+		}</text>
 
         <!-- Packing details -->
         <text x="0.5mm" y="11.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="5.4mm" y="11.2mm" font-size="2.2" font-family="Arial">${
-					item.packedOn
-				}</text>
+			item.packedOn
+		}</text>
         <text x="0.5mm" y="12.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="5.4mm" y="12.2mm" font-size="2.2" font-family="Arial">${
-					item.bestBefore
-				}</text>
+			item.bestBefore
+		}</text>
 
         <!-- Net quantity and lot number -->
         <text x="0.5mm" y="13.1mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="5mm" y="13.1mm" font-size="2.2" font-family="Arial">${
-					item.lotno
-				}</text>
+			item.lotno
+		}</text>
         <text x="0.5mm" y="14.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="5mm" y="14.2mm" font-size="2.5" font-family="Arial">${
-					item.sku
-				}</text>
+			item.sku
+		}</text>
 
         <text x="10mm" y="14.5mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
         <text x="10mm" y="15.5mm" font-size="2.2" font-family="Arial" font-weight="bold">${
-					item.pergram
-				} per gm</text>
+			item.pergram
+		} per gm</text>
 
         <!-- Price details -->
         <text x="0.5mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="5mm" y="15.4mm" font-size="2.4" font-family="Arial">₹ ${
-					item.mrp
-				}</text>
+			item.mrp
+		}</text>
         <text x="0.5mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">R.R.P.:</text> <text font-weight="bold" x="5mm" y="16.4mm" font-size="2.4" font-family="Arial">₹ ${
-					item.rrp
-				}</text>
+			item.rrp
+		}</text>
 
         <!-- Packer details -->
         <text x="0.5mm" y="17.5mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
@@ -152,7 +154,7 @@ async function createImageWithBarcode(item) {
 			.toBuffer();
 
 		const barcodeImage = await sharp(barcode)
-			.resize(mmToPx(40), mmToPx(15))
+			.resize(mmToPx(45), mmToPx(14))
 			.rotate(180)
 			.png()
 			.toBuffer();
@@ -181,10 +183,7 @@ async function createImageWithBarcode(item) {
 			.jpeg()
 			.toBuffer();
 
-		fs.writeFileSync(
-			`./labels/${item.itemName}.jpeg`,
-			combinedImage
-		);
+		fs.writeFileSync(`./labels/${item.itemName}.jpeg`, combinedImage);
 
 		console.log(`Image saved as ${item.itemName}.png`);
 
@@ -193,10 +192,7 @@ async function createImageWithBarcode(item) {
 			quantity: item.quantity,
 		};
 	} catch (error) {
-		console.error(
-			"Error creating image with barcode:",
-			error
-		);
+		console.error('Error creating image with barcode:', error);
 	}
 }
 
@@ -206,9 +202,7 @@ async function printLabels(items) {
 	let allPrintingTask = [];
 
 	for (const item of items) {
-		allPrintingTask.push(
-			await createImageWithBarcode(item)
-		);
+		allPrintingTask.push(await createImageWithBarcode(item));
 	}
 
 	printImage(allPrintingTask);
@@ -221,9 +215,7 @@ async function printLabels(items) {
 function removeAllFiles() {
 	fs.readdir(`./labels`, (err, files) => {
 		if (err) {
-			console.error(
-				`Unable to read directory: ${err.message}`
-			);
+			console.error(`Unable to read directory: ${err.message}`);
 			return;
 		}
 
@@ -246,7 +238,9 @@ function removeAllFiles() {
 
 setInterval(() => {
 	removeAllFiles();
-}, 2000);
+}, 5000);
+
+module.exports = { printLabels };
 
 // allPrintingTask.push(
 // 	await createImageWithBarcode({
@@ -295,5 +289,3 @@ setInterval(() => {
 // 		quantity: 6,
 // 	})
 // );
-
-module.exports = { printLabels };
