@@ -37,17 +37,17 @@ app.get('/test_get', function (req, res) {
 app.post('/api/v1/print', async function (req, res) {
 	try {
 		// GET THE TSC DEVICE ACCORDING TO THE VENDOR AND PRODUCT ID
-		const TSC_THERMAL_PRINTER = usb
-			.getDeviceList()
-			.filter(
-				(device) =>
-					device.deviceDescriptor.idVendor === 4611 &&
-					device.deviceDescriptor.idProduct === 626
-			);
+		// const TSC_THERMAL_PRINTER = usb
+		// 	.getDeviceList()
+		// 	.filter(
+		// 		(device) =>
+		// 			device.deviceDescriptor.idVendor === 4611 &&
+		// 			device.deviceDescriptor.idProduct === 626
+		// 	);
 
-		if (!TSC_THERMAL_PRINTER.length) {
-			throw new Error('TSC PRINTER NOT FOUND');
-		}
+		// if (!TSC_THERMAL_PRINTER.length) {
+		// 	throw new Error('TSC PRINTER NOT FOUND');
+		// }
 
 		const { items } = req.body;
 

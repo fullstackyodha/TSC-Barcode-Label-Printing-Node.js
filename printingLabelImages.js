@@ -40,9 +40,9 @@ const printImage = (tasks) => {
 		);
 	});
 
-	setInterval(() => {
-		removeAllFiles();
-	}, 5000);
+	// setInterval(() => {
+	// 	removeAllFiles();
+	// }, 5000);
 };
 
 // Function to generate barcode
@@ -144,6 +144,7 @@ function createTextImagewithRRP(item) {
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
     </svg>
     `;
+
 	return Buffer.from(svgText);
 }
 
@@ -159,65 +160,66 @@ function createTextImageWithoutRRP(item) {
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="9mm" y="5mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="9mm" y="5.3mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="2.5mm" y="6mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="6.3mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="2.5mm" y="7mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="7.3mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text x="2.5mm" y="8.3mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			45
 		)}</text>
-        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="9.3mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
-        <text x="2.5mm" y="10mm" font-size="2.2"  font-family="Arial" font-weight="bold">Cust. Care: ${
-			item.customerCare
+
+		<!-- Customer Care -->
+		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
+			item.customerCare || '9820461013'
 		}</text>
 
         <!-- Packing details -->
-        <text x="2.5mm" y="11.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="7.4mm" y="11.2mm" font-size="2.2" font-family="Arial">${
+        <text x="2.5mm" y="11.7mm" font-size="2.4" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="7.7mm" y="11.7mm" font-size="2.6" font-family="Arial">${
 			item.packedOn
 		}</text>
-        <text x="2.5mm" y="12.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="7.4mm" y="12.2mm" font-size="2.2" font-family="Arial">${
+        <text x="2.5mm" y="12.9mm" font-size="2.4" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="7.7mm" y="12.9mm" font-size="2.6" font-family="Arial">${
 			item.bestBefore
 		}</text>
 
         <!-- Net quantity and lot number -->
-        <text x="2.5mm" y="13.1mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="7mm" y="13.1mm" font-size="2.2" font-family="Arial">${
+        <text x="14mm" y="13.9mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="17mm" y="13.9mm" font-size="2.2" font-family="Arial">${
 			item.lotno
 		}</text>
-        <text x="2.5mm" y="14.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="7mm" y="14.2mm" font-size="2.5" font-family="Arial">${
+        <text x="2.5mm" y="14.2mm" font-size="2.4" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="7mm" y="14.2mm" font-size="2.6" font-family="Arial">${
 			item.sku
 		}</text>
 
-        <text x="14mm" y="14.5mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
-        <text x="14mm" y="15.5mm" font-size="2.2" font-family="Arial" font-weight="bold">${
+        <text x="14mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
+        <text x="14mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">${
 			item.pergram
 		} per gm</text>
 
         <!-- Price details -->
-        <text x="2.5mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="7mm" y="15.4mm" font-size="2.4" font-family="Arial">₹ ${
+        <text x="2.5mm" y="15.7mm" font-size="2.4" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="7mm" y="15.7mm" font-size="2.9" font-family="Arial">₹ ${
 			item.mrp
 		}/-</text>
-        <text x="2.5mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">R.R.P.:</text> <text font-weight="bold" x="7mm" y="16.4mm" font-size="2.4" font-family="Arial">₹ ${
-			item.rrp
-		}/-</text>
+        
 
         <!-- Packer details -->
-        <text x="2.5mm" y="17.5mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
-        <text x="2.5mm" y="18.5mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
-        <text x="2.5mm" y="19.5mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
-        <text x="2.5mm" y="20.5mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
+        <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
+        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
     </svg>
     `;
+
 	return Buffer.from(svgText);
 }
 
@@ -227,7 +229,10 @@ async function createImageWithBarcode(item) {
 		const mmToPx = (mm) => Math.round(mm * 4.9); // Conversion and rounding to integer 3.979528
 
 		const itemName =
-			item?.rrp === 0 || item?.rrp === '' || item?.rrp === null
+			item?.rrp === item?.mrp ||
+			item?.rrp === 0 ||
+			item?.rrp === '' ||
+			item?.rrp === null
 				? createTextImageWithoutRRP(item)
 				: createTextImagewithRRP(item);
 
@@ -296,7 +301,7 @@ async function printLabels(items) {
 		allPrintingTask.push(await createImageWithBarcode(item));
 	}
 
-	printImage(allPrintingTask);
+	// printImage(allPrintingTask);
 
 	allPrintingTask = [];
 
