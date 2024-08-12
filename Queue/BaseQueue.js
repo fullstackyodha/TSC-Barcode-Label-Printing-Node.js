@@ -1,16 +1,13 @@
-const Queue = require("bull");
+const Queue = require('bull');
 
 class BaseQueue {
 	queue;
 
 	constructor(queueName) {
 		// Creates a new queue with the given Name;
-		this.queue = new Queue(
-			queueName,
-			"redis://localhost:6379"
-		);
+		this.queue = new Queue(queueName, 'redis://localhost:6379');
 
-		this.queue.on("completed", async (job) => {
+		this.queue.on('completed', async (job) => {
 			// Removes a completed job from the queue
 			await job.remove();
 			console.log(`JOB ${job?.id} COMPLETED`);
@@ -60,7 +57,7 @@ class BaseQueue {
 	addJob(name, task) {
 		this.queue.add(name, task, {
 			attempts: 5,
-			backoff: { type: "fixed", delay: 5000 },
+			backoff: { type: 'fixed', delay: 5000 },
 		});
 	}
 

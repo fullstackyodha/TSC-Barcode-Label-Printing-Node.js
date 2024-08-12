@@ -46,9 +46,7 @@ app.post('/api/v1/print', async function (req, res) {
 			);
 
 		if (!TSC_THERMAL_PRINTER.length) {
-			res.end({
-				message: 'TSC PRINTER NOT FOUND',
-			});
+			throw new Error('TSC PRINTER NOT FOUND');
 		}
 
 		const { items } = req.body;

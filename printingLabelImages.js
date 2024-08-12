@@ -33,10 +33,16 @@ const printImage = (tasks) => {
 			Buffer.concat([
 				TscBuffer.cls(),
 				buffer,
+				TscBuffer.speed(3),
+				TscBuffer.density(12),
 				TscBuffer.print(task.quantity),
 			])
 		);
 	});
+
+	setInterval(() => {
+		removeAllFiles();
+	}, 5000);
 };
 
 // Function to generate barcode
@@ -49,7 +55,7 @@ function generateBarcode(data) {
 				bcid: 'code128',
 				text: bardata.length == 8 ? `${bardata}` : `0${bardata}`,
 				scale: 8,
-				height: 6,
+				height: 8,
 				includetext: true,
 				textxalign: 'center',
 			},
@@ -65,75 +71,151 @@ function generateBarcode(data) {
 }
 
 // Function to create text image
-function createTextImage(item) {
+function createTextImagewithRRP(item) {
 	const svgText = `
-    <svg width="150mm" height="180mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 60">
+    <svg width="180mm" height="180mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
         <!-- Background rectangle -->
-        <rect width="150mm" height="180mm"  fill="white" stroke="black" stroke-width="0.1mm"/>
+        <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="0.5mm" y="1.4mm" font-size="2.8" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="1.6mm" font-size="3.2" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="7mm" y="5mm" font-size="2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="9mm" y="5mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="0.5mm" y="6mm" font-size="2.3" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="6mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="0.5mm" y="7mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="7mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="0.5mm" y="8mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			45
 		)}</text>
-        <text x="0.5mm" y="9mm" font-size="2.1" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
-        <text x="0.5mm" y="10mm" font-size="2.1"  font-family="Arial" font-weight="bold">Cust. Care: ${
-			item.customerCare
+
+		<!-- Customer Care -->
+		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
+			item.customerCare || '9820461013'
 		}</text>
 
         <!-- Packing details -->
-        <text x="0.5mm" y="11.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="5.4mm" y="11.2mm" font-size="2.2" font-family="Arial">${
+        <text x="2.5mm" y="11.4mm" font-size="2.4" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="7.7mm" y="11.4mm" font-size="2.6" font-family="Arial">${
 			item.packedOn
 		}</text>
-        <text x="0.5mm" y="12.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="5.4mm" y="12.2mm" font-size="2.2" font-family="Arial">${
+        <text x="2.5mm" y="12.6mm" font-size="2.4" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="7.7mm" y="12.6mm" font-size="2.6" font-family="Arial">${
 			item.bestBefore
 		}</text>
 
         <!-- Net quantity and lot number -->
-        <text x="0.5mm" y="13.1mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="5mm" y="13.1mm" font-size="2.2" font-family="Arial">${
+        <text x="14mm" y="13.9mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="17mm" y="13.9mm" font-size="2.2" font-family="Arial">${
 			item.lotno
 		}</text>
-        <text x="0.5mm" y="14.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="5mm" y="14.2mm" font-size="2.5" font-family="Arial">${
+        <text x="2.5mm" y="13.9mm" font-size="2.4" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="7mm" y="13.9mm" font-size="2.6" font-family="Arial">${
 			item.sku
 		}</text>
 
-        <text x="10mm" y="14.5mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
-        <text x="10mm" y="15.5mm" font-size="2.2" font-family="Arial" font-weight="bold">${
+        <text x="14mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
+        <text x="14mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">${
 			item.pergram
 		} per gm</text>
 
         <!-- Price details -->
-        <text x="0.5mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="5mm" y="15.4mm" font-size="2.4" font-family="Arial">₹ ${
+        <text x="2.5mm" y="15.4mm" font-size="2.4" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="7mm" y="15.4mm" font-size="2.9" font-family="Arial">₹ ${
 			item.mrp
-		}</text>
-        <text x="0.5mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">R.R.P.:</text> <text font-weight="bold" x="5mm" y="16.4mm" font-size="2.4" font-family="Arial">₹ ${
+		}/-</text>
+        <text x="2.5mm" y="16.7mm" font-size="2.4" font-family="Arial" font-weight="bold">R.R.P.:</text> <text font-weight="bold" x="7mm" y="16.7mm" font-size="2.9" font-family="Arial">₹ ${
 			item.rrp
-		}</text>
+		}/-</text>
 
         <!-- Packer details -->
-        <text x="0.5mm" y="17.5mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
-        <text x="0.5mm" y="18.5mm"  font-size="2"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
-        <text x="0.5mm" y="19.5mm"  font-size="2" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
-        <text x="0.5mm" y="20.5mm"  font-size="1.8" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
+        <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
+        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
+    </svg>
+    `;
+	return Buffer.from(svgText);
+}
+
+function createTextImageWithoutRRP(item) {
+	const svgText = `
+    <svg width="180mm" height="180mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+        <!-- Background rectangle -->
+        <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
+
+        <!-- Title -->
+        <text x="2.5mm" y="1.6mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+			item.itemName
+		}</text>
+
+        <!-- FSSAI number -->
+        <text x="9mm" y="5mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+			item.fssaiNo
+		}</text>
+
+
+        <!-- Marketer details -->
+        <text  x="2.5mm" y="6mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+			item.storeName
+		}</text>
+        <text  x="2.5mm" y="7mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+			0,
+			45
+		)}</text>
+        <text x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+			45
+		)}</text>
+        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+			item.email
+		}</text>
+        <text x="2.5mm" y="10mm" font-size="2.2"  font-family="Arial" font-weight="bold">Cust. Care: ${
+			item.customerCare
+		}</text>
+
+        <!-- Packing details -->
+        <text x="2.5mm" y="11.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Packed On:</text> <text font-weight="bold" x="7.4mm" y="11.2mm" font-size="2.2" font-family="Arial">${
+			item.packedOn
+		}</text>
+        <text x="2.5mm" y="12.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Best Before:</text> <text font-weight="bold" x="7.4mm" y="12.2mm" font-size="2.2" font-family="Arial">${
+			item.bestBefore
+		}</text>
+
+        <!-- Net quantity and lot number -->
+        <text x="2.5mm" y="13.1mm" font-size="2.2" font-family="Arial" font-weight="bold">Lot No:</text> <text font-weight="bold" x="7mm" y="13.1mm" font-size="2.2" font-family="Arial">${
+			item.lotno
+		}</text>
+        <text x="2.5mm" y="14.2mm" font-size="2.2" font-family="Arial" font-weight="bold">Net Qty:</text> <text font-weight="bold" x="7mm" y="14.2mm" font-size="2.5" font-family="Arial">${
+			item.sku
+		}</text>
+
+        <text x="14mm" y="14.5mm" font-size="2.2" font-family="Arial" font-weight="bold">Incl. All Taxes</text>
+        <text x="14mm" y="15.5mm" font-size="2.2" font-family="Arial" font-weight="bold">${
+			item.pergram
+		} per gm</text>
+
+        <!-- Price details -->
+        <text x="2.5mm" y="15.4mm" font-size="2.2" font-family="Arial" font-weight="bold">M.R.P.:</text> <text font-weight="bold" x="7mm" y="15.4mm" font-size="2.4" font-family="Arial">₹ ${
+			item.mrp
+		}/-</text>
+        <text x="2.5mm" y="16.4mm" font-size="2.2" font-family="Arial" font-weight="bold">R.R.P.:</text> <text font-weight="bold" x="7mm" y="16.4mm" font-size="2.4" font-family="Arial">₹ ${
+			item.rrp
+		}/-</text>
+
+        <!-- Packer details -->
+        <text x="2.5mm" y="17.5mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18.5mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
+        <text x="2.5mm" y="19.5mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
+        <text x="2.5mm" y="20.5mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
     </svg>
     `;
 	return Buffer.from(svgText);
@@ -142,27 +224,31 @@ function createTextImage(item) {
 // Combine text and barcode into a single image
 async function createImageWithBarcode(item) {
 	try {
-		const mmToPx = (mm) => Math.round(mm * 3.779528); // Conversion and rounding to integer
+		const mmToPx = (mm) => Math.round(mm * 4.9); // Conversion and rounding to integer 3.979528
 
-		const itemName = createTextImage(item);
+		const itemName =
+			item?.rrp === 0 || item?.rrp === '' || item?.rrp === null
+				? createTextImageWithoutRRP(item)
+				: createTextImagewithRRP(item);
+
 		const barcode = await generateBarcode(item.barcode);
 
 		const itemNameImage = await sharp(itemName)
-			.resize(mmToPx(108), mmToPx(129))
+			.resize(mmToPx(100), mmToPx(100))
 			.rotate(180)
 			.jpeg()
 			.toBuffer();
 
 		const barcodeImage = await sharp(barcode)
-			.resize(mmToPx(45), mmToPx(14))
+			.resize(mmToPx(40), mmToPx(10), { fit: 'fill' })
 			.rotate(180)
 			.png()
 			.toBuffer();
 
 		const combinedImage = await sharp({
 			create: {
-				width: mmToPx(108),
-				height: mmToPx(129),
+				width: mmToPx(100),
+				height: mmToPx(100),
 				channels: 4,
 				background: { r: 255, g: 255, b: 255, alpha: 1 },
 			},
@@ -175,20 +261,25 @@ async function createImageWithBarcode(item) {
 				},
 				{
 					input: barcodeImage,
-					top: mmToPx(104),
-					left: mmToPx(60),
+					top: mmToPx(80),
+					left: mmToPx(45),
 				},
 			])
 			// .resize(mmToPx(130), mmToPx(140))
 			.jpeg()
 			.toBuffer();
 
-		fs.writeFileSync(`./labels/${item.itemName}.jpeg`, combinedImage);
+		fs.writeFileSync(
+			`./labels/${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}.jpeg`,
+			combinedImage
+		);
 
-		console.log(`Image saved as ${item.itemName}.png`);
+		console.log(
+			`Image saved as ${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}.png`
+		);
 
 		return {
-			itemName: item.itemName,
+			itemName: `${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}`,
 			quantity: item.quantity,
 		};
 	} catch (error) {
@@ -235,10 +326,6 @@ function removeAllFiles() {
 		});
 	});
 }
-
-setInterval(() => {
-	removeAllFiles();
-}, 5000);
 
 module.exports = { printLabels };
 
