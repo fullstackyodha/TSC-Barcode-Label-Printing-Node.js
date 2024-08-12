@@ -71,7 +71,7 @@ app.post('/api/v1/print', async function (req, res) {
 	} catch (err) {
 		res.status(404).json({
 			error: err,
-			message: 'TSC PRINTER NOT FOUND',
+			message: 'TSC PRINTER Error',
 		});
 	}
 });

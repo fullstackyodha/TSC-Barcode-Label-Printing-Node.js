@@ -47,13 +47,16 @@ const printImage = (tasks) => {
 
 // Function to generate barcode
 function generateBarcode(data) {
-	let bardata = `${data}`;
+	let barcodeData = `${data}`;
 
 	return new Promise((resolve, reject) => {
 		bwipjs.toBuffer(
 			{
 				bcid: 'code128',
-				text: bardata.length == 8 ? `${bardata}` : `0${bardata}`,
+				text:
+					barcodeData.length >= 7
+						? `${barcodeData}`
+						: `${barcodeData}`.padStart(7, '0'),
 				scale: 8,
 				height: 8,
 				includetext: true,
@@ -105,7 +108,7 @@ function createTextImagewithRRP(item) {
 
 		<!-- Customer Care -->
 		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
-			item.customerCare || '9820461013'
+			item.customerCare
 		}</text>
 
         <!-- Packing details -->
@@ -182,7 +185,7 @@ function createTextImageWithoutRRP(item) {
 
 		<!-- Customer Care -->
 		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
-			item.customerCare || '9820461013'
+			item.customerCare
 		}</text>
 
         <!-- Packing details -->
