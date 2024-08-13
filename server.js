@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 const cors = require('cors');
 const compression = require('compression');
 const usb = require('usb');
-
+require('express-async-errors');
 const { printQueue } = require('./Queue/PrintingQueue');
 
 var app = express();
@@ -34,7 +34,7 @@ app.get('/test_get', function (req, res) {
 	res.json({ message: 'GET Function Test!!' });
 });
 
-app.post('/api/v1/print', async function (req, res) {
+app.post('/api/v1/print', async function (req, res, next) {
 	try {
 		// GET THE TSC DEVICE ACCORDING TO THE VENDOR AND PRODUCT ID
 		const TSC_THERMAL_PRINTER = usb
@@ -46,6 +46,7 @@ app.post('/api/v1/print', async function (req, res) {
 			);
 
 		if (!TSC_THERMAL_PRINTER.length) {
+			// res.status(404).end('TSC PRINTER NOT FOUND');
 			throw new Error('TSC PRINTER NOT FOUND');
 		}
 
@@ -69,9 +70,10 @@ app.post('/api/v1/print', async function (req, res) {
 			message: 'Task added to prinitng queue successfully',
 		});
 	} catch (err) {
-		res.status(404).json({
-			error: err,
-			message: 'TSC PRINTER Error',
-		});
+		res.status(404).json({ msg: err.message });
 	}
+});
+
+app.use((err, req, res, next) => {
+	res.status(404).json({ msg: err.message });
 });

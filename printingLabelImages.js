@@ -17,8 +17,6 @@ const TSC_THERMAL_PRINTER = usb
 			device.deviceDescriptor.idProduct === 626
 	);
 
-console.log(TSC_THERMAL_PRINTER);
-
 const printer = new TscPrinter(TSC_THERMAL_PRINTER[0]);
 
 const printImage = (tasks) => {
@@ -40,9 +38,9 @@ const printImage = (tasks) => {
 		);
 	});
 
-	// setInterval(() => {
-	// 	removeAllFiles();
-	// }, 5000);
+	setInterval(() => {
+		removeAllFiles();
+	}, 5000);
 };
 
 // Function to generate barcode
@@ -273,7 +271,6 @@ async function createImageWithBarcode(item) {
 					left: mmToPx(45),
 				},
 			])
-			// .resize(mmToPx(130), mmToPx(140))
 			.jpeg()
 			.toBuffer();
 
@@ -304,7 +301,7 @@ async function printLabels(items) {
 		allPrintingTask.push(await createImageWithBarcode(item));
 	}
 
-	// printImage(allPrintingTask);
+	printImage(allPrintingTask);
 
 	allPrintingTask = [];
 
@@ -336,51 +333,3 @@ function removeAllFiles() {
 }
 
 module.exports = { printLabels };
-
-// allPrintingTask.push(
-// 	await createImageWithBarcode({
-// 		itemId: 35,
-// 		itemName: "California Badam",
-// 		barcode: 4583272,
-// 		fssaiNo: 1132198374462,
-// 		storeName: "Cheeda Sales",
-// 		address:
-// 			"Shop No 18 Plot No 26 Alankar Shivaji Chowk, Shopping Center New Plaza, Malad East.",
-// 		email: "cheedasales@gmail.com",
-// 		customerCare: 9820461013,
-// 		packedOn: "15/05/2024",
-// 		bestBefore: "15/08/2024",
-// 		mrp: "1200",
-// 		rrp: "950",
-// 		pergram: 0.95,
-// 		sku: "1kg",
-// 		unit: "kg",
-// 		cp: 50,
-// 		lotno: "B-103",
-// 		quantity: 4,
-// 	})
-// );
-
-// allPrintingTask.push(
-// 	await createImageWithBarcode({
-// 		itemId: 35,
-// 		itemName: "Ajwain Premium",
-// 		barcode: 4583234,
-// 		fssaiNo: 1132198374462,
-// 		storeName: "Janta Market",
-// 		address:
-// 			"Shop No 18 Plot No 26 Alankar Shivaji Chowk, Shopping Center New Plaza, Malad East.",
-// 		email: "jantamarket@gmail.com",
-// 		customerCare: 9820461013,
-// 		packedOn: "15/05/2024",
-// 		bestBefore: "15/08/2024",
-// 		mrp: "560",
-// 		rrp: "450",
-// 		pergram: 0.23,
-// 		sku: "2kg",
-// 		unit: "kg",
-// 		cp: 50,
-// 		lotno: "B-103",
-// 		quantity: 6,
-// 	})
-// );
