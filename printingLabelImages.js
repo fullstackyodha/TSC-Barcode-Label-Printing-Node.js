@@ -274,23 +274,19 @@ async function createImageWithBarcode(item) {
 			.jpeg()
 			.toBuffer();
 
+		let time = Date.now();
+
 		fs.writeFileSync(
-			`./labels/${item.itemName}-${item.skuName}-${item.sku}-${
-				item.mrp
-			}-${item.rrp}-${item.barcode}-${Date.now()}.jpeg`,
+			`./labels/${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}.jpeg`,
 			combinedImage
 		);
 
 		console.log(
-			`Image saved as ${item.itemName}-${item.skuName}-${item.sku}-${
-				item.mrp
-			}-${item.rrp}-${item.barcode}-${Date.now()}.png`
+			`Image saved as ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}.jpeg`
 		);
 
 		return {
-			itemName: `${item.itemName}-${item.skuName}-${item.sku}-${
-				item.mrp
-			}-${item.rrp}-${item.barcode}-${Date.now()}`,
+			itemName: `${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}`,
 			quantity: item.quantity,
 		};
 	} catch (error) {
@@ -307,7 +303,7 @@ async function printLabels(items) {
 		allPrintingTask.push(await createImageWithBarcode(item));
 	}
 
-	// printImage(allPrintingTask);
+	printImage(allPrintingTask);
 
 	allPrintingTask = [];
 
