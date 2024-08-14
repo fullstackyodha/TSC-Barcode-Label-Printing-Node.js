@@ -275,16 +275,22 @@ async function createImageWithBarcode(item) {
 			.toBuffer();
 
 		fs.writeFileSync(
-			`./labels/${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}.jpeg`,
+			`./labels/${item.itemName}-${item.skuName}-${item.sku}-${
+				item.mrp
+			}-${item.rrp}-${item.barcode}-${Date.now()}.jpeg`,
 			combinedImage
 		);
 
 		console.log(
-			`Image saved as ${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}.png`
+			`Image saved as ${item.itemName}-${item.skuName}-${item.sku}-${
+				item.mrp
+			}-${item.rrp}-${item.barcode}-${Date.now()}.png`
 		);
 
 		return {
-			itemName: `${item.itemName}-${item.skuName}-${item.mrp}-${item.rrp}-${item.barcode}`,
+			itemName: `${item.itemName}-${item.skuName}-${item.sku}-${
+				item.mrp
+			}-${item.rrp}-${item.barcode}-${Date.now()}`,
 			quantity: item.quantity,
 		};
 	} catch (error) {
@@ -301,7 +307,7 @@ async function printLabels(items) {
 		allPrintingTask.push(await createImageWithBarcode(item));
 	}
 
-	printImage(allPrintingTask);
+	// printImage(allPrintingTask);
 
 	allPrintingTask = [];
 
