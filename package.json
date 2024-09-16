@@ -1,58 +1,66 @@
 {
-  "name": "tsc_barcode_label_printing",
-  "version": "0.0.0",
-  "description": "POS Barcode Label Printing using node.js",
-  "main": "server.js",
-  "author": {
-    "name": "Harshal Solanki"
-  },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "scripts": {
-    "start": "nodemon server.js",
-    "build": "parcel build --target node server.js"
-  },
-  "targets": {
-    "node": {
-      "context": "node",
-      "includeNodeModules": true,
-      "distDir": "./build"
-    }
-  },
-  "dependencies": {
-    "bull": "^4.12.2",
-    "bwip-js": "^4.3.2",
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "edge-cs": "^1.2.1",
-    "edge-js": "^21.7.2",
-    "express": "^4.19.2",
-    "express-async-errors": "^3.1.1",
-    "sharp": "^0.33.4"
-  },
-  "devDependencies": {
-    "jimp": "^0.22.12",
-    "nodemon": "^3.1.1",
-    "parcel": "^2.12.0",
-    "queue": "^7.0.0",
-    "usb": "^2.13.0"
-  },
-  "keywords": [
-    "tsc",
-    "printer",
-    "nodejs",
-    "tspl",
-    "tspl2"
-  ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
-  }
+	"name": "tsc_barcode_label_printing",
+	"version": "0.0.0",
+	"description": "POS Barcode Label Printing using node.js",
+	"main": "server.js",
+	"author": {
+		"name": "Harshal Solanki"
+	},
+	"browserslist": "> 0.5%, last 2 versions, not dead",
+	"scripts": {
+		"start": "nodemon server.js",
+		"build": "parcel build --target node server.js",
+		"pm2-start": "pm2 start server.js --name tsclabelprinting --restart-delay 6000 --max-restarts 10",
+		"pm2-start-watch": "pm2 start server.js --name tsclabelprinting --watch",
+		"pm2-restart": "pm2 restart tsclabelprinting",
+		"pm2-stop": "pm2 stop tsclabelprinting",
+		"pm2-delete": "pm2 delete tsclabelprinting",
+		"pm2-save": "pm2 save",
+		"pm2-logs": "pm2 logs tsclabelprinting",
+		"pm2-monit": "pm2 monit"
+	},
+	"targets": {
+		"node": {
+			"context": "node",
+			"includeNodeModules": true,
+			"distDir": "./build"
+		}
+	},
+	"dependencies": {
+		"bull": "^4.12.2",
+		"bwip-js": "^4.3.2",
+		"compression": "^1.7.4",
+		"cors": "^2.8.5",
+		"edge-cs": "^1.2.1",
+		"edge-js": "^21.7.2",
+		"express": "^4.19.2",
+		"express-async-errors": "^3.1.1",
+		"sharp": "^0.33.4"
+	},
+	"devDependencies": {
+		"jimp": "^0.22.12",
+		"nodemon": "^3.1.1",
+		"parcel": "^2.12.0",
+		"queue": "^7.0.0",
+		"usb": "^2.13.0"
+	},
+	"keywords": [
+		"tsc",
+		"printer",
+		"nodejs",
+		"tspl",
+		"tspl2"
+	],
+	"babel": {
+		"presets": [
+			[
+				"@babel/preset-env",
+				{
+					"targets": {
+						"node": "current"
+					}
+				}
+			]
+		]
+	}
 }

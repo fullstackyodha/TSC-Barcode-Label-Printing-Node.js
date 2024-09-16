@@ -40,7 +40,7 @@ const printImage = (tasks) => {
 
 	setInterval(() => {
 		removeAllFiles();
-	}, 5000);
+	}, 500);
 };
 
 // Function to generate barcode
