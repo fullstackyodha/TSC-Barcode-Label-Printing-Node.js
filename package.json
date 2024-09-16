@@ -10,8 +10,7 @@
 	"scripts": {
 		"start": "nodemon server.js",
 		"build": "parcel build --target node server.js",
-		"pm2-start": "pm2 start server.js --name tsclabelprinting --restart-delay 6000 --max-restarts 10",
-		"pm2-start-watch": "pm2 start server.js --name tsclabelprinting --watch",
+		"pm2-start": "pm2 start server.js --name tsclabelprinting --restart-delay=6000 --cron-restart=\"* * * * *\"",
 		"pm2-restart": "pm2 restart tsclabelprinting",
 		"pm2-stop": "pm2 stop tsclabelprinting",
 		"pm2-delete": "pm2 delete tsclabelprinting",

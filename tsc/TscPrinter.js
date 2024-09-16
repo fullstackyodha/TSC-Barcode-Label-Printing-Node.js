@@ -19,17 +19,18 @@ class TscPrinter {
 					}
 				}
 			}
+
 			if (
 				/^linux/.test(process.platform) ||
 				/^android/.test(process.platform)
 			) {
-				console.log("Linux!!!");
+				console.log('Linux!!!');
 				if (iface.isKernelDriverActive()) {
 					try {
 						iface.detachKernelDriver();
 					} catch (e) {
 						console.error(
-							"[ERROR] Could not detach kernel driver: %s",
+							'[ERROR] Could not detach kernel driver: %s',
 							e
 						);
 					}
@@ -39,10 +40,10 @@ class TscPrinter {
 			iface.claim();
 
 			let outEndpoint = iface.endpoints.find(
-				(endpoint) => endpoint.direction === "out"
+				(endpoint) => endpoint.direction === 'out'
 			);
 			let inEndpoint = iface.endpoints.find(
-				(endpoint) => endpoint.direction === "in"
+				(endpoint) => endpoint.direction === 'in'
 			);
 
 			let finish = false;
@@ -51,21 +52,21 @@ class TscPrinter {
 			function _resolve() {
 				inEndpoint.stopPoll(function () {
 					iface.release(() => {
-						console.log("usb print finished !");
+						console.log('usb print finished !');
 						closeConnection();
 						resolve();
 					});
 				});
 			}
 
-			inEndpoint.on("data", function (data) {
+			inEndpoint.on('data', function (data) {
 				if (!finish && data.length !== 0) {
 					finish = true;
 					if (transfered) _resolve();
 				}
 			});
 
-			inEndpoint.on("error", function (e) {
+			inEndpoint.on('error', function (e) {
 				console.warn(e);
 				closeConnection();
 				return reject(err);
@@ -75,9 +76,9 @@ class TscPrinter {
 
 			outEndpoint.transfer(data, (err) => {
 				transfered = true;
-				console.log("transfer finished!");
+				console.log('transfer finished!');
 				if (err) {
-					console.log("USB CRASH".red);
+					console.log('USB CRASH'.red);
 					console.warn(err);
 					closeConnection();
 					return reject(err);
@@ -87,7 +88,7 @@ class TscPrinter {
 					_resolve();
 				} else {
 					setTimeout(function () {
-						console.log("print Timeout !!!");
+						console.log('print Timeout !!!');
 						if (!finish) {
 							_resolve();
 							finish = true;
@@ -96,7 +97,7 @@ class TscPrinter {
 				}
 			});
 
-			outEndpoint.on("error", function (e) {
+			outEndpoint.on('error', function (e) {
 				console.warn(e);
 				closeConnection();
 				return reject(err);

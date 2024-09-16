@@ -38,6 +38,7 @@ const printImage = (tasks) => {
 		);
 	});
 
+	console.log('DELETING...!!!');
 	setInterval(() => {
 		removeAllFiles();
 	}, 500);
