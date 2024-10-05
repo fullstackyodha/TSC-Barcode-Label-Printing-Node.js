@@ -80,28 +80,28 @@ function createTextImagewithRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="1.6mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="9mm" y="5mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="2.5mm" y="6mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="7mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="2.5mm" y="7mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			45
 		)}</text>
-        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="10mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
 
@@ -157,28 +157,28 @@ function createTextImageWithoutRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="1.6mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="9mm" y="5.3mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="2.5mm" y="6.3mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="7mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="2.5mm" y="7.3mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="2.5mm" y="8.3mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
 			45
 		)}</text>
-        <text x="2.5mm" y="9.3mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="10mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
 
@@ -268,7 +268,7 @@ async function createImageWithBarcode(item) {
 				},
 				{
 					input: barcodeImage,
-					top: mmToPx(80),
+					top: mmToPx(75),
 					left: mmToPx(45),
 				},
 			])
