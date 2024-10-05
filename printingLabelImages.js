@@ -25,7 +25,7 @@ const printImage = (tasks) => {
 	tasks.forEach(async (task) => {
 		const imgPath = `./labels/${task.itemName}.jpeg`;
 		const img = await Jimp.read(imgPath);
-		const buffer = await TscBuffer.bitmap(0, 0, img.bitmap);
+		const buffer = await TscBuffer.bitmap(-0, 0, img.bitmap);
 
 		await printer.Write(
 			Buffer.concat([
@@ -80,12 +80,20 @@ function createTextImagewithRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
+<<<<<<< HEAD
         <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+=======
+        <text x="2.5mm" y="2mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+>>>>>>> f5fe72fed562a4f49c74e9811cd9ba523c4106c3
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
+<<<<<<< HEAD
         <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+=======
+        <text x="9mm" y="5.8mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+>>>>>>> f5fe72fed562a4f49c74e9811cd9ba523c4106c3
 			item.fssaiNo
 		}</text>
 
@@ -140,7 +148,7 @@ function createTextImagewithRRP(item) {
 		}/-</text>
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
@@ -157,12 +165,20 @@ function createTextImageWithoutRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
+<<<<<<< HEAD
         <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+=======
+        <text x="2.5mm" y="2mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+>>>>>>> f5fe72fed562a4f49c74e9811cd9ba523c4106c3
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
+<<<<<<< HEAD
         <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+=======
+        <text x="9mm" y="5.8mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+>>>>>>> f5fe72fed562a4f49c74e9811cd9ba523c4106c3
 			item.fssaiNo
 		}</text>
 
@@ -215,7 +231,7 @@ function createTextImageWithoutRRP(item) {
         
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
@@ -268,7 +284,11 @@ async function createImageWithBarcode(item) {
 				},
 				{
 					input: barcodeImage,
+<<<<<<< HEAD
 					top: mmToPx(75),
+=======
+					top: mmToPx(78),
+>>>>>>> f5fe72fed562a4f49c74e9811cd9ba523c4106c3
 					left: mmToPx(45),
 				},
 			])
