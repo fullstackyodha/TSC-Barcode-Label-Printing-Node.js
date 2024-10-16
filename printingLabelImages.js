@@ -80,12 +80,12 @@ function createTextImagewithRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="2mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="9mm" y="5.8mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
@@ -140,7 +140,7 @@ function createTextImagewithRRP(item) {
 		}/-</text>
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
@@ -157,12 +157,12 @@ function createTextImageWithoutRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="2mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="9mm" y="5.8mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
@@ -215,7 +215,7 @@ function createTextImageWithoutRRP(item) {
         
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
