@@ -72,7 +72,6 @@ function generateBarcode(data) {
 	});
 }
 
-
 // Function to create text image
 function createTextImagewithRRP(item) {
 	const svgText = `
@@ -225,7 +224,6 @@ function createTextImageWithoutRRP(item) {
 
 	return Buffer.from(svgText);
 }
-
 
 // Combine text and barcode into a single image
 async function createImageWithBarcode(item) {
