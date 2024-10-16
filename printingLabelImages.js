@@ -73,7 +73,6 @@ function generateBarcode(data) {
 }
 
 // Function to create text image
-// Function to create text image
 function createTextImagewithRRP(item) {
 	const svgText = `
     <svg width="180mm" height="180mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
@@ -225,7 +224,6 @@ function createTextImageWithoutRRP(item) {
 
 	return Buffer.from(svgText);
 }
-
 
 // Combine text and barcode into a single image
 async function createImageWithBarcode(item) {
