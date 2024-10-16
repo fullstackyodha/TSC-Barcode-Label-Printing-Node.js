@@ -72,7 +72,7 @@ function generateBarcode(data) {
 	});
 }
 
-// Function to create text image
+
 // Function to create text image
 function createTextImagewithRRP(item) {
 	const svgText = `
