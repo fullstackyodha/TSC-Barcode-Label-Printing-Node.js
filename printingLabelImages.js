@@ -39,9 +39,30 @@ const printImage = (tasks) => {
 	});
 
 	console.log('DELETING...!!!');
+
 	setInterval(() => {
-		removeAllFiles();
-	}, 500);
+		fs.readdir(`./labels`, (err, files) => {
+			if (err) {
+				console.error(`Unable to read directory: ${err.message}`);
+				return;
+			}
+	
+			tasks.forEach((file) => {
+				const filePath = path.join(`./labels`, `${file.itemName}.jpeg`);
+	
+				console.log(`Deleting file: ${filePath}`);
+				fs.unlink(filePath, (err) => {
+					if (err) {
+						console.error(
+							`Unable to delete file ${filePath}: ${err.message}`
+						);
+					} else {
+						console.log(`Deleted file: ${filePath}`);
+					}
+				});
+			});
+		});
+	}, 1000);
 };
 
 // Function to generate barcode
@@ -80,33 +101,30 @@ function createTextImagewithRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.2mm" font-size="3" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="10mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="2.5mm" y="7mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="7mm" font-size="2.1" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="8mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
-			45
-		)}</text>
-        <text x="2.5mm" y="10mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="9mm" font-size="2.1" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
 
 		<!-- Customer Care -->
-		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
+		<text x="60" y="52" font-size="2.2" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
 			item.customerCare
 		}</text>
 
@@ -140,7 +158,7 @@ function createTextImagewithRRP(item) {
 		}/-</text>
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
@@ -157,33 +175,30 @@ function createTextImageWithoutRRP(item) {
         <rect width="180mm" height="180mm" fill="white" stroke="black" stroke-width="0.1mm"/>
 
         <!-- Title -->
-        <text x="2.5mm" y="2.4mm" font-size="3.2" font-family="Arial" font-weight="bold">${
+        <text x="2.5mm" y="2.2mm" font-size="3" font-family="Arial" font-weight="bold">${
 			item.itemName
 		}</text>
 
         <!-- FSSAI number -->
-        <text x="12mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
+        <text x="10mm" y="6mm" font-size="2.2" font-family="Arial" font-weight="bold">FSSAI NO. ${
 			item.fssaiNo
 		}</text>
 
 
         <!-- Marketer details -->
-        <text  x="2.5mm" y="7mm" font-size="2.5" font-family="Arial" font-weight="bold">Marketed By: ${
+        <text  x="2.5mm" y="7mm" font-size="2.1" font-family="Arial" font-weight="bold">Marketed By: ${
 			item.storeName
 		}</text>
-        <text  x="2.5mm" y="8mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
+        <text  x="2.5mm" y="8mm" font-size="2.1" font-family="Arial" font-weight="bold">${item.address.slice(
 			0,
 			45
 		)}</text>
-        <text x="2.5mm" y="9mm" font-size="2.2" font-family="Arial" font-weight="bold">${item.address.slice(
-			45
-		)}</text>
-        <text x="2.5mm" y="10mm" font-size="2.2" font-family="Arial" font-weight="bold">Email: ${
+        <text x="2.5mm" y="9mm" font-size="2.1" font-family="Arial" font-weight="bold">Email: ${
 			item.email
 		}</text>
 
 		<!-- Customer Care -->
-		<text x="60" y="52" font-size="2.4" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
+		<text x="60" y="52" font-size="2.2" font-family="Arial" font-weight="bold" transform="rotate(-90, 60, 52)">Cust. Care: ${
 			item.customerCare
 		}</text>
 
@@ -215,7 +230,7 @@ function createTextImageWithoutRRP(item) {
         
 
         <!-- Packer details -->
-        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Packed By: PRPM Services Pvt Ltd</text>
+        <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
         <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
@@ -268,7 +283,7 @@ async function createImageWithBarcode(item) {
 				},
 				{
 					input: barcodeImage,
-					top: mmToPx(78),
+					top: mmToPx(77),
 					left: mmToPx(45),
 				},
 			])
@@ -278,16 +293,19 @@ async function createImageWithBarcode(item) {
 		let time = Date.now();
 
 		fs.writeFileSync(
-			`./labels/${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}.jpeg`,
+			`./labels/${item.barcode}-${time}.jpeg`,
 			combinedImage
 		);
+		// ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-
 
 		console.log(
-			`Image saved as ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}.jpeg`
+			`Image saved as ${item.barcode}-${time}.jpeg`
 		);
+		// ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-
 
 		return {
-			itemName: `${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-${item.barcode}-${time}`,
+			itemName: `${item.barcode}-${time}`,
+			// ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-
 			quantity: item.quantity,
 		};
 	} catch (error) {
@@ -306,9 +324,9 @@ async function printLabels(items) {
 
 	printImage(allPrintingTask);
 
-	allPrintingTask = [];
+	// allPrintingTask = [];
 
-	console.log(allPrintingTask);
+	// console.log(allPrintingTask);
 }
 
 function removeAllFiles() {
