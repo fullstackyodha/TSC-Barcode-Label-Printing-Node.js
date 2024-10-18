@@ -46,8 +46,21 @@ const printImage = (tasks) => {
 				console.error(`Unable to read directory: ${err.message}`);
 				return;
 			}
-	
+
 			tasks.forEach((file) => {
+
+				fs.readdir(`./labels`, (err, files) => {
+					if (err) {
+						console.error(`Unable to read directory: ${err.message}`);
+						return;
+					}
+
+					if (files.length === 0) {
+						console.log('Exiting...');
+						process.exit(0)
+					}}
+				)
+
 				const filePath = path.join(`./labels`, `${file.itemName}.jpeg`);
 	
 				console.log(`Deleting file: ${filePath}`);
@@ -63,6 +76,8 @@ const printImage = (tasks) => {
 			});
 		});
 	}, 1000);
+
+
 };
 
 // Function to generate barcode
