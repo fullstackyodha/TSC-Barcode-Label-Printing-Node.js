@@ -48,21 +48,22 @@ const printImage = (tasks) => {
 			}
 
 			tasks.forEach((file) => {
-
 				fs.readdir(`./labels`, (err, files) => {
 					if (err) {
-						console.error(`Unable to read directory: ${err.message}`);
+						console.error(
+							`Unable to read directory: ${err.message}`
+						);
 						return;
 					}
 
 					if (files.length === 0) {
 						console.log('Exiting...');
-						process.exit(0)
-					}}
-				)
+						process.exit(0);
+					}
+				});
 
 				const filePath = path.join(`./labels`, `${file.itemName}.jpeg`);
-	
+
 				console.log(`Deleting file: ${filePath}`);
 				fs.unlink(filePath, (err) => {
 					if (err) {
@@ -76,8 +77,6 @@ const printImage = (tasks) => {
 			});
 		});
 	}, 1000);
-
-
 };
 
 // Function to generate barcode
@@ -313,9 +312,7 @@ async function createImageWithBarcode(item) {
 		);
 		// ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-
 
-		console.log(
-			`Image saved as ${item.barcode}-${time}.jpeg`
-		);
+		console.log(`Image saved as ${item.barcode}-${time}.jpeg`);
 		// ${item.itemName}-${item.skuName}-${item.sku}-${item.mrp}-${item.rrp}-
 
 		return {
@@ -338,34 +335,6 @@ async function printLabels(items) {
 	}
 
 	printImage(allPrintingTask);
-
-	// allPrintingTask = [];
-
-	// console.log(allPrintingTask);
-}
-
-function removeAllFiles() {
-	fs.readdir(`./labels`, (err, files) => {
-		if (err) {
-			console.error(`Unable to read directory: ${err.message}`);
-			return;
-		}
-
-		files.forEach((file) => {
-			const filePath = path.join(`./labels`, file);
-
-			console.log(`Deleting file: ${filePath}`);
-			fs.unlink(filePath, (err) => {
-				if (err) {
-					console.error(
-						`Unable to delete file ${filePath}: ${err.message}`
-					);
-				} else {
-					console.log(`Deleted file: ${filePath}`);
-				}
-			});
-		});
-	});
 }
 
 module.exports = { printLabels };
