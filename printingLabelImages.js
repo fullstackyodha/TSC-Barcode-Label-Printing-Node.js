@@ -176,7 +176,7 @@ function createTextImagewithRRP(item) {
         <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
-        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
+        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 11522016000043</text>
     </svg>
     `;
 
@@ -248,7 +248,7 @@ function createTextImageWithoutRRP(item) {
         <text x="2.5mm" y="18mm"  font-size="2.2"  font-family="Arial" font-weight="bold">Re-Packed By: PRPM Services Pvt Ltd</text>
         <text x="2.5mm" y="19mm"  font-size="2.1"  font-family="Arial" font-weight="bold">G-25, Sidhpura Industrial Estate, Gaiwadi Rd</text>
         <text x="2.5mm" y="20mm"  font-size="2.1" font-family="Arial" font-weight="bold">S.V. Road, Goregaon West 400104.</text>
-        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 115200054000</text>
+        <text x="2.5mm" y="21mm"  font-size="2.1" font-family="Arial" font-weight="bold">FSSAI NO. 11522016000043</text>
     </svg>
     `;
 
